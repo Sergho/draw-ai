@@ -1,15 +1,8 @@
 import { Router } from 'express';
+import { aiController } from '../controllers/ai.controller.js';
 
 export const aiRouter = Router();
 
-aiRouter.put('/', (req, res) => {
-    res.send('Запуск обучения');
-});
-
-aiRouter.get('/status', (req, res) => {
-    res.send('Статус обучения');
-});
-
-aiRouter.get('/', (req, res) => {
-    res.send('Результат предсказания');
-});
+aiRouter.put('/', aiController.update);
+aiRouter.get('/status', aiController.status);
+aiRouter.get('/', aiController.predict);

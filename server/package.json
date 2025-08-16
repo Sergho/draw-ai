@@ -1,0 +1,27 @@
+{
+    "name": "draw-ai-server",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc --project tsconfig.json",
+        "build:watch": "tsc --project tsconfig.json --watch --preserveWatchOutput",
+        "start": "npm run build && node dist/index.js",
+        "start:watch": "npm run build && nodemon --watch dist dist/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^1.11.0",
+        "cors": "^2.8.5",
+        "express": "^5.1.0"
+    },
+    "devDependencies": {
+        "@types/axios": "^0.14.4",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.3",
+        "nodemon": "^3.1.10",
+        "prettier": "^3.6.2"
+    }
+}

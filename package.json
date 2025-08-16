@@ -1,0 +1,22 @@
+{
+    "name": "draw-ai",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node .scripts/start.js",
+        "deps": "npm install && tsc --project tsconfig.json && node .scripts/deps.js",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write ."
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^24.2.1"
+    },
+    "dependencies": {
+        "chalk": "^5.5.0",
+        "typescript": "^5.9.2"
+    }
+}

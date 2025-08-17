@@ -1,6 +1,10 @@
+import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index.js';
+import { AppDataSource } from './database/data-source.js';
+
+await AppDataSource.initialize();
 
 const app = express();
 const PORT = 3001;

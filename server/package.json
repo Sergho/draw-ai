@@ -8,7 +8,9 @@
         "build": "tsc --project tsconfig.json",
         "build:watch": "tsc --project tsconfig.json --watch --preserveWatchOutput",
         "start": "npm run build && node dist/index.js",
-        "start:watch": "npm run build && nodemon --watch dist dist/index.js"
+        "start:watch": "npm run build && nodemon --watch dist dist/index.js",
+        "migration:generate": "typeorm migration:generate src/database/migrations/${MNAME} -d dist/database/data-source.js",
+        "migration:run": "typeorm migration:run -d dist/database/data-source.js"
     },
     "author": "",
     "license": "ISC",
@@ -16,7 +18,10 @@
         "axios": "^1.11.0",
         "cors": "^2.8.5",
         "dotenv": "^17.2.1",
-        "express": "^5.1.0"
+        "express": "^5.1.0",
+        "pg": "^8.16.3",
+        "reflect-metadata": "^0.2.2",
+        "typeorm": "^0.3.25"
     },
     "devDependencies": {
         "@types/axios": "^0.14.4",

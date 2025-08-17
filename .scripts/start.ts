@@ -10,11 +10,17 @@ const tasks: ProcessTask[] = [
         command: ['npm', 'run', 'start'],
     },
     {
-        name: 'server:build',
+        name: 'migrations:run',
         location: 'server',
-        color: chalk.grey,
-        command: ['npm', 'run', 'build'],
+        color: chalk.blue,
+        command: ['npm', 'run', 'migration:run'],
         after: [
+            {
+                name: 'server:build',
+                location: 'server',
+                color: chalk.grey,
+                command: ['npm', 'run', 'build'],
+            },
             {
                 name: 'server:build',
                 location: 'server',

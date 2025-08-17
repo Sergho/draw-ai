@@ -8,7 +8,7 @@
         "start": "node .scripts/start.js",
         "deps": "npm install && tsc --project tsconfig.json && node .scripts/deps.js",
         "start:db": "docker-compose up -d",
-        "stop:db": "docker-compose down",
+        "stop:db": "docker-compose down -v",
         "format": "prettier --check .",
         "format:fix": "prettier --write ."
     },

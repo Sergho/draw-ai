@@ -10,7 +10,8 @@
         "start": "npm run build && node dist/index.js",
         "start:watch": "npm run build && nodemon --watch dist dist/index.js",
         "migration:generate": "typeorm migration:generate src/database/migrations/${MNAME} -d dist/database/data-source.js",
-        "migration:run": "typeorm migration:run -d dist/database/data-source.js"
+        "migration:run": "typeorm migration:run -d dist/database/data-source.js",
+        "test": "jest"
     },
     "author": "",
     "license": "ISC",
@@ -27,7 +28,10 @@
         "@types/axios": "^0.14.4",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.3",
+        "@types/jest": "^30.0.0",
+        "jest": "^30.0.5",
         "nodemon": "^3.1.10",
-        "prettier": "^3.6.2"
+        "prettier": "^3.6.2",
+        "ts-jest": "^29.4.1"
     }
 }

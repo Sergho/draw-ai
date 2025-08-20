@@ -84,4 +84,17 @@ describe('canvas model', () => {
         canvas.parseBase64(base64);
         expect(canvas.getBase64()).toEqual(base64);
     });
+    it('should be filled with zeros by default', () => {
+        const canvas = new Canvas({ width: 10, height: 20 });
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 20; y++) {
+                const elem = canvas.get({ x, y });
+                expect(elem).toEqual(0);
+            }
+        }
+    });
+    it('should check size correctly', () => {
+        const canvas = new Canvas({ width: 3, height: 4 });
+        expect(canvas.checkSize({ width: 3, height: 3 })).toEqual(false);
+    });
 });

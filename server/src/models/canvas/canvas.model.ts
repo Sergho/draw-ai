@@ -1,5 +1,5 @@
 import { CANVAS_ERROR } from './canvas.constants.js';
-import { CanvasError, CanvasPosition, CanvasSize } from './canvas.types.js';
+import { CanvasPosition, CanvasSize } from './canvas.types.js';
 
 export class Canvas {
     private map: number[][];
@@ -17,6 +17,9 @@ export class Canvas {
         for (let x = 0; x < width; x++) {
             this.map[x] = [];
             this.map[x].length = height;
+            for (let y = 0; y < height; y++) {
+                this.map[x][y] = 0;
+            }
         }
     }
     get size() {
@@ -79,5 +82,10 @@ export class Canvas {
         }
 
         this.map[x][y] = value;
+    }
+    checkSize(target: CanvasSize): boolean {
+        const { width, height } = target;
+
+        return width === this.size.width && height === this.size.height;
     }
 }

@@ -4,7 +4,11 @@
         "experimentalDecorators": true,
         "strictPropertyInitialization": false,
         "outDir": "dist",
-        "rootDir": "src"
+        "rootDir": "src",
+        "isolatedModules": true,
+        "paths": {
+            "@/*": ["./*"]
+        }
     },
     "include": ["."],
     "exclude": ["node_modules", "dist", "jest.config.js"]

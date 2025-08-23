@@ -14,6 +14,14 @@ const tasks: ProcessTask[] = [
         location: 'server',
         color: chalk.green,
         command: ['npm', 'install'],
+        after: [
+            {
+                name: 'server:build',
+                location: 'server',
+                color: chalk.green,
+                command: ['npm', 'run', 'build'],
+            },
+        ],
     },
 ];
 

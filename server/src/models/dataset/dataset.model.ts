@@ -9,11 +9,13 @@ import {
 } from './dataset.types.js';
 import { DATASET_ERROR, datasetItemSize } from './dataset.constants.js';
 import { QueryRunner } from 'typeorm';
+import { AppDataSource } from '../../database/data-source.js';
+import { TransactionalModel } from '../../utils/transactional-model.js';
 
-export class DatasetModel {
+export class DatasetModel implements TransactionalModel {
     private queryRunner: QueryRunner;
-    constructor(queryRunner: QueryRunner) {
-        this.queryRunner = queryRunner;
+    constructor() {
+        this.queryRunner = AppDataSource.createQueryRunner();
     }
     async createItem(dto: DatasetCreateItemDto): Promise<DatasetItem> {
         const { canvas, value } = dto;
@@ -122,5 +124,20 @@ export class DatasetModel {
         }
 
         await this.queryRunner.manager.delete(DatasetItemEntity, id);
+    }
+
+    async start() {
+        await this.queryRunner.connect();
+        await this.queryRunner.startTransaction();
+    }
+
+    async commit() {
+        await this.queryRunner.commitTransaction();
+        await this.queryRunner.release();
+    }
+
+    async rollback() {
+        await this.queryRunner.rollbackTransaction();
+        await this.queryRunner.release();
     }
 }

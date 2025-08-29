@@ -24,7 +24,7 @@ describe('dataset model', () => {
     });
 
     it('should check size on creating item', async () => {
-        const canvas = new Canvas({ width: 3, height: 2 });
+        const canvas = new Canvas({ rows: 3, cols: 2 });
 
         await expect(model.createItem({ canvas, value: 4 })).rejects.toThrow(
             DATASET_ERROR.incorrectSize,
@@ -47,7 +47,7 @@ describe('dataset model', () => {
     it('should check size on updating item', async () => {
         const canvas = new Canvas(datasetItemSize);
         const created = await model.createItem({ canvas, value: 4 });
-        canvas.size = { width: 3, height: 4 };
+        canvas.size = { rows: 3, cols: 4 };
 
         await expect(
             model.updateItem({ id: created.id, canvas, value: 4 }),

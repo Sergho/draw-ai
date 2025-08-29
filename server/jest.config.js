@@ -8,6 +8,8 @@ export default {
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
     reporters: ['jest-standard-reporter'],
+    verbose: true,
+    silent: false,
     transform: {
         '^.+\\.ts$': [
             'ts-jest',

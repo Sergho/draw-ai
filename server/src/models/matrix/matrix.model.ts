@@ -99,7 +99,7 @@ export class Matrix {
             return -1;
         }
 
-        return row * cols + col;
+        return index;
     }
     private getRow(index: number): number[] {
         const { rows, cols } = this.size;

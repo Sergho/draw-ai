@@ -8,6 +8,6 @@ export const DATASET_ERROR = {
 };
 
 export const datasetItemSize: CanvasSize = {
-    width: 30,
-    height: 30,
+    rows: 30,
+    cols: 30,
 };

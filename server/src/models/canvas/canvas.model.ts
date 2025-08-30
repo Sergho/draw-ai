@@ -64,4 +64,13 @@ export class Canvas {
 
         return rows === this.size.rows && cols === this.size.cols;
     }
+    getList(): number[] {
+        return this.matrix.getList();
+    }
+    fill(value: number): void {
+        this.matrix.fill(value);
+    }
+    random(): void {
+        this.matrix.random(0, 1);
+    }
 }

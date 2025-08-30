@@ -7,7 +7,7 @@ export class Matrix {
     constructor(size: MatrixSize) {
         this.size = size;
     }
-    public set size(value: MatrixSize) {
+    set size(value: MatrixSize) {
         const { rows, cols } = value;
 
         this._size = value;
@@ -15,22 +15,22 @@ export class Matrix {
         this.data.length = rows * cols;
         this.fill(0);
     }
-    public get size(): MatrixSize {
+    get size(): MatrixSize {
         return this._size;
     }
-    public fill(value: number): void {
+    fill(value: number): void {
         const { data } = this;
         for (let i = 0; i < data.length; i++) {
             data[i] = value;
         }
     }
-    public random(): void {
+    random(from: number, to: number): void {
         const { data } = this;
         for (let i = 0; i < data.length; i++) {
-            data[i] = Math.random();
+            data[i] = Math.random() * (to - from) + from;
         }
     }
-    public set(position: MatrixPosition, value: number): void {
+    set(position: MatrixPosition, value: number): void {
         const index = this.getDataIndex(position);
 
         if (index === -1) {
@@ -39,7 +39,7 @@ export class Matrix {
 
         this.data[index] = value;
     }
-    public get(position: MatrixPosition): number {
+    get(position: MatrixPosition): number {
         const index = this.getDataIndex(position);
 
         if (index === -1) {
@@ -48,7 +48,19 @@ export class Matrix {
 
         return this.data[index];
     }
-    public static sum(first: Matrix, second: Matrix): Matrix {
+    getList(): number[] {
+        return this.data;
+    }
+    static fromList(list: number[]): Matrix {
+        const matrix = new Matrix({ rows: 1, cols: list.length });
+
+        for (let col = 0; col < list.length; col++) {
+            matrix.set({ row: 0, col }, list[col]);
+        }
+
+        return matrix;
+    }
+    static sum(first: Matrix, second: Matrix): Matrix {
         if (
             first.size.rows !== second.size.rows ||
             first.size.cols !== second.size.cols
@@ -65,7 +77,7 @@ export class Matrix {
 
         return result;
     }
-    public static multiply(first: Matrix, second: Matrix): Matrix {
+    static multiply(first: Matrix, second: Matrix): Matrix {
         if (first.size.cols !== second.size.rows) {
             throw MATRIX_ERROR.incompatibleSizes;
         }

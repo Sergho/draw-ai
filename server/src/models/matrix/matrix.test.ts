@@ -1,3 +1,4 @@
+import { datasetItemSize } from '../dataset/dataset.constants.js';
 import { MATRIX_ERROR } from './matrix.constants.js';
 import { Matrix } from './matrix.model.js';
 
@@ -22,6 +23,12 @@ describe('matrix model', () => {
         expect(() => {
             matrix.set({ row: 4, col: 2 }, 2);
         }).toThrow(MATRIX_ERROR.incorrectPosition);
+    });
+    it('should parse list correctly', () => {
+        const list = [4, 3, 2, 5, 6];
+        const matrix = Matrix.fromList(list);
+        expect(matrix.size).toEqual({ rows: 1, cols: list.length });
+        expect(matrix.getList()).toEqual(list);
     });
     it('should check matrices sizes before sum', () => {
         const first = new Matrix({ rows: 3, cols: 2 });
@@ -100,6 +107,14 @@ describe('matrix model', () => {
                 const value = resultMatrix.get({ row, col });
                 expect(value).toEqual(result[row][col]);
             }
+        }
+    });
+    it('should observe random limits', () => {
+        const matrix = new Matrix(datasetItemSize);
+        matrix.random(-3, 5);
+        for (const elem of matrix.getList()) {
+            expect(elem).toBeLessThan(5);
+            expect(elem).toBeGreaterThan(-3);
         }
     });
 });

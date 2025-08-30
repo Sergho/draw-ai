@@ -1,5 +1,8 @@
-import { datasetItemSize } from '../dataset/dataset.constants.js';
-import { AIConfig } from './ai.types.js';
+import { AIConfig, AIError } from './ai.types.js';
+
+export const AI_ERROR = {
+    incorrectInput: new AIError('Incorrect prediction input'),
+};
 
 export const aiConfig: AIConfig = {
     layers: [
@@ -13,4 +16,5 @@ export const aiConfig: AIConfig = {
             size: 10,
         },
     ],
+    paramsDispersion: 2,
 };

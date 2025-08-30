@@ -4,4 +4,7 @@ export type LayerConfig = {
 
 export type AIConfig = {
     layers: LayerConfig[];
+    paramsDispersion: number;
 };
+
+export class AIError extends Error {}

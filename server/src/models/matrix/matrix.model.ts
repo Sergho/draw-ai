@@ -52,10 +52,10 @@ export class Matrix {
         return this.data;
     }
     static fromList(list: number[]): Matrix {
-        const matrix = new Matrix({ rows: 1, cols: list.length });
+        const matrix = new Matrix({ rows: list.length, cols: 1 });
 
-        for (let col = 0; col < list.length; col++) {
-            matrix.set({ row: 0, col }, list[col]);
+        for (let row = 0; row < list.length; row++) {
+            matrix.set({ row, col: 0 }, list[row]);
         }
 
         return matrix;

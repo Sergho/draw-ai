@@ -27,7 +27,7 @@ describe('matrix model', () => {
     it('should parse list correctly', () => {
         const list = [4, 3, 2, 5, 6];
         const matrix = Matrix.fromList(list);
-        expect(matrix.size).toEqual({ rows: 1, cols: list.length });
+        expect(matrix.size).toEqual({ rows: list.length, cols: 1 });
         expect(matrix.getList()).toEqual(list);
     });
     it('should check matrices sizes before sum', () => {

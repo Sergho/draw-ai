@@ -23,7 +23,7 @@ export class AIModel implements TransactionalModel {
             const biases = this.biases[i];
 
             const matrix = Matrix.fromList(current);
-            const multiplied = Matrix.multiply(matrix, weights);
+            const multiplied = Matrix.multiply(weights, matrix);
             const offseted = Matrix.sum(multiplied, biases);
             const list = offseted.getList();
 
@@ -57,7 +57,7 @@ export class AIModel implements TransactionalModel {
         let lastSize = datasetItemSize.cols * datasetItemSize.rows;
         for (let i = 0; i < layers.length; i++) {
             const size = layers[i].size;
-            const matrix = new Matrix({ rows: lastSize, cols: size });
+            const matrix = new Matrix({ rows: size, cols: lastSize });
             matrix.random(-paramsDispersion, paramsDispersion);
 
             this.weights.push(matrix);
@@ -70,7 +70,7 @@ export class AIModel implements TransactionalModel {
         this.biases = [];
         for (let i = 0; i < layers.length; i++) {
             const size = layers[i].size;
-            const matrix = new Matrix({ rows: 1, cols: size });
+            const matrix = new Matrix({ rows: size, cols: 1 });
             matrix.random(-paramsDispersion, paramsDispersion);
 
             this.biases.push(matrix);

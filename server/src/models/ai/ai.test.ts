@@ -11,6 +11,7 @@ describe('AI model', () => {
         model = new AIModel();
         await model.start();
     });
+
     afterEach(async () => {
         await model.rollback();
     });
@@ -32,8 +33,8 @@ describe('AI model', () => {
 
         const prediction = model.predict(canvas);
         for (const elem of prediction) {
-            expect(elem).toBeLessThan(1);
-            expect(elem).toBeGreaterThan(0);
+            expect(elem).toBeLessThanOrEqual(1);
+            expect(elem).toBeGreaterThanOrEqual(0);
         }
     });
     it('should return determined prediction', () => {

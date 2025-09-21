@@ -46,9 +46,6 @@ export class AIModel extends StorageModel {
         this.initWeights();
         this.initBiases();
     }
-    async start(): Promise<void> {}
-    async commit(): Promise<void> {}
-    async rollback(): Promise<void> {}
     private getSignals(canvas: Canvas): AILayerSignal[] {
         if (!canvas.checkSize(datasetItemSize)) {
             throw AI_ERROR.incorrectInput;

@@ -28,10 +28,10 @@ describe('storage model', () => {
         const data = await model.read();
         expect(data).toEqual('temptest123');
     });
-    // it('should clear data', async () => {
-    //     await model.write('temp');
-    //     await model.clear();
-    //     const data = await model.read();
-    //     expect(data).toEqual('');
-    // });
+    it('should clear data', async () => {
+        await model.write('temp');
+        await model.clear();
+        const data = await model.read();
+        expect(data).toEqual('');
+    });
 });

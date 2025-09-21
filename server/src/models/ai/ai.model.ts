@@ -1,16 +1,17 @@
-import { TransactionalModel } from '../../utils/transactional-model.js';
 import { Canvas } from '../canvas/canvas.model.js';
 import { datasetItemSize } from '../dataset/dataset.constants.js';
 import { DatasetItem } from '../dataset/dataset.types.js';
 import { Matrix } from '../matrix/matrix.model.js';
+import { StorageModel } from '../storage/storage.model.js';
 import { AI_ERROR, aiConfig } from './ai.constants.js';
 import { AILayerSignal, AILearnDiff } from './ai.types.js';
 
-export class AIModel implements TransactionalModel {
+export class AIModel extends StorageModel {
     private weights: Matrix[];
     private biases: Matrix[];
     constructor() {
-        this.clear();
+        super();
+        this.clearParams();
     }
     learn(batch: DatasetItem[]): void {
         const diffs: AILearnDiff[] = [];
@@ -28,13 +29,20 @@ export class AIModel implements TransactionalModel {
 
         this.weights = updated.weightsDiff;
         this.biases = updated.biasesDiff;
+
+        const payload = {
+            weights: this.weights,
+            biases: this.biases,
+        };
+
+        this.write(JSON.stringify(payload));
     }
     predict(canvas: Canvas): number[] {
         const signals = this.getSignals(canvas);
 
         return signals[signals.length - 1].activated;
     }
-    clear(): void {
+    clearParams(): void {
         this.initWeights();
         this.initBiases();
     }

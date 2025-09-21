@@ -30,6 +30,29 @@ describe('matrix model', () => {
         expect(matrix.size).toEqual({ rows: list.length, cols: 1 });
         expect(matrix.getList()).toEqual(list);
     });
+    it('should scale matrix correctly', () => {
+        const data = [
+            [1, 2, 3],
+            [6, 3, 2],
+        ];
+        const factor = 0.5;
+        const matrix = new Matrix({ rows: 2, cols: 3 });
+
+        for (let row = 0; row < 2; row++) {
+            for (let col = 0; col < 3; col++) {
+                matrix.set({ row, col }, data[row][col]);
+            }
+        }
+
+        matrix.scale(factor);
+
+        for (let row = 0; row < 2; row++) {
+            for (let col = 0; col < 3; col++) {
+                const value = matrix.get({ row, col });
+                expect(value).toEqual(data[row][col] * factor);
+            }
+        }
+    });
     it('should check matrices sizes before sum', () => {
         const first = new Matrix({ rows: 3, cols: 2 });
         const second = new Matrix({ rows: 4, cols: 2 });

@@ -51,6 +51,15 @@ export class Matrix {
     getList(): number[] {
         return this.data;
     }
+    scale(factor: number) {
+        if (factor === 0) {
+            throw MATRIX_ERROR.invalidFactor;
+        }
+
+        for (let i = 0; i < this.data.length; i++) {
+            this.data[i] *= factor;
+        }
+    }
     static fromList(list: number[]): Matrix {
         const matrix = new Matrix({ rows: list.length, cols: 1 });
 

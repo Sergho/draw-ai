@@ -8,11 +8,11 @@ export type DatasetItem = {
 
 export class DatasetError extends Error {}
 
-export type DatasetCreateItemDto = Pick<DatasetItem, 'canvas' | 'value'>;
+export type DatasetModelCreateItemDto = Pick<DatasetItem, 'canvas' | 'value'>;
 
-export type DatasetUpdateItemDto = Pick<DatasetItem, 'id'> &
+export type DatasetModelUpdateItemDto = Pick<DatasetItem, 'id'> &
     Partial<Pick<DatasetItem, 'canvas' | 'value'>>;
 
-export type DatasetGetItemDto = Pick<DatasetItem, 'id'>;
+export type DatasetModelGetItemDto = Pick<DatasetItem, 'id'>;
 
-export type DatasetDeleteItemDto = Pick<DatasetItem, 'id'>;
+export type DatasetModelDeleteItemDto = Pick<DatasetItem, 'id'>;

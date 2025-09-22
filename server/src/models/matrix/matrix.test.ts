@@ -28,7 +28,7 @@ describe('matrix model', () => {
         const list = [4, 3, 2, 5, 6];
         const matrix = Matrix.fromList(list);
         expect(matrix.size).toEqual({ rows: list.length, cols: 1 });
-        expect(matrix.getList()).toEqual(list);
+        expect(matrix.getRaw()).toEqual(list);
     });
     it('should scale matrix correctly', () => {
         const data = [
@@ -135,7 +135,7 @@ describe('matrix model', () => {
     it('should observe random limits', () => {
         const matrix = new Matrix(datasetItemSize);
         matrix.random(-3, 5);
-        for (const elem of matrix.getList()) {
+        for (const elem of matrix.getRaw()) {
             expect(elem).toBeLessThan(5);
             expect(elem).toBeGreaterThan(-3);
         }

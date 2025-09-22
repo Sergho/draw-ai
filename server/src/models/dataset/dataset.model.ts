@@ -1,11 +1,11 @@
 import { DatasetItemEntity } from '../../database/entities/dataset-item.entity.js';
 import { Canvas } from '../canvas/canvas.model.js';
 import {
-    DatasetCreateItemDto,
-    DatasetDeleteItemDto,
-    DatasetGetItemDto,
+    DatasetModelCreateItemDto,
+    DatasetModelDeleteItemDto,
+    DatasetModelGetItemDto,
     DatasetItem,
-    DatasetUpdateItemDto,
+    DatasetModelUpdateItemDto,
 } from './dataset.types.js';
 import { DATASET_ERROR, datasetItemSize } from './dataset.constants.js';
 import { QueryRunner } from 'typeorm';
@@ -17,7 +17,7 @@ export class DatasetModel implements TransactionalModel {
     constructor() {
         this.queryRunner = AppDataSource.createQueryRunner();
     }
-    async createItem(dto: DatasetCreateItemDto): Promise<DatasetItem> {
+    async createItem(dto: DatasetModelCreateItemDto): Promise<DatasetItem> {
         const { canvas, value } = dto;
 
         if (!canvas.checkSize(datasetItemSize)) {
@@ -56,7 +56,7 @@ export class DatasetModel implements TransactionalModel {
         });
     }
 
-    async getSingleItem(dto: DatasetGetItemDto): Promise<DatasetItem> {
+    async getSingleItem(dto: DatasetModelGetItemDto): Promise<DatasetItem> {
         const { id } = dto;
 
         const item = await this.queryRunner.manager.findOneBy(
@@ -78,11 +78,11 @@ export class DatasetModel implements TransactionalModel {
         };
     }
 
-    async exists(dto: DatasetGetItemDto): Promise<boolean> {
+    async exists(dto: DatasetModelGetItemDto): Promise<boolean> {
         return this.queryRunner.manager.existsBy(DatasetItemEntity, dto);
     }
 
-    async updateItem(dto: DatasetUpdateItemDto): Promise<DatasetItem> {
+    async updateItem(dto: DatasetModelUpdateItemDto): Promise<DatasetItem> {
         const { id, canvas, value } = dto;
         const blob = canvas ? canvas.getBlob() : undefined;
 
@@ -116,7 +116,7 @@ export class DatasetModel implements TransactionalModel {
         };
     }
 
-    async deleteItem(dto: DatasetDeleteItemDto): Promise<void> {
+    async deleteItem(dto: DatasetModelDeleteItemDto): Promise<void> {
         const { id } = dto;
 
         if (!this.exists({ id })) {

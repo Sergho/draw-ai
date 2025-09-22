@@ -13,15 +13,29 @@ export class Matrix {
         this._size = value;
         this.data = [];
         this.data.length = rows * cols;
-        this.fill(0);
+        this.fillWithValue(0);
     }
     get size(): MatrixSize {
         return this._size;
     }
-    fill(value: number): void {
+    fillWithValue(value: number): void {
         const { data } = this;
         for (let i = 0; i < data.length; i++) {
             data[i] = value;
+        }
+    }
+    fillWithPixels(pixels: number[]) {
+        const { rows, cols } = this.size;
+
+        if (pixels.length !== rows * cols) {
+            throw MATRIX_ERROR.incompatibleSizes;
+        }
+
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const index = this.getRawIndex({ row, col });
+                this.set({ row, col }, pixels[index]);
+            }
         }
     }
     random(from: number, to: number): void {
@@ -31,7 +45,7 @@ export class Matrix {
         }
     }
     set(position: MatrixPosition, value: number): void {
-        const index = this.getDataIndex(position);
+        const index = this.getRawIndex(position);
 
         if (index === -1) {
             throw MATRIX_ERROR.incorrectPosition;
@@ -40,7 +54,7 @@ export class Matrix {
         this.data[index] = value;
     }
     get(position: MatrixPosition): number {
-        const index = this.getDataIndex(position);
+        const index = this.getRawIndex(position);
 
         if (index === -1) {
             throw MATRIX_ERROR.incorrectPosition;
@@ -48,7 +62,7 @@ export class Matrix {
 
         return this.data[index];
     }
-    getList(): number[] {
+    getRaw(): number[] {
         return this.data;
     }
     scale(factor: number) {
@@ -59,6 +73,11 @@ export class Matrix {
         for (let i = 0; i < this.data.length; i++) {
             this.data[i] *= factor;
         }
+    }
+    checkSize(target: MatrixSize): boolean {
+        const { rows, cols } = target;
+
+        return rows === this.size.rows && cols === this.size.cols;
     }
     static fromList(list: number[]): Matrix {
         const matrix = new Matrix({ rows: list.length, cols: 1 });
@@ -111,7 +130,7 @@ export class Matrix {
 
         return result;
     }
-    private getDataIndex(position: MatrixPosition): number {
+    private getRawIndex(position: MatrixPosition): number {
         const { row, col } = position;
         const { cols } = this.size;
         const index = row * cols + col;

@@ -54,7 +54,7 @@ export class AIModel extends StorageModel {
         const signals: AILayerSignal[] = [
             {
                 raw: [],
-                activated: canvas.getList(),
+                activated: canvas.getRaw(),
             },
         ];
 
@@ -67,7 +67,7 @@ export class AIModel extends StorageModel {
             const matrix = Matrix.fromList(current);
             const multiplied = Matrix.multiply(weights, matrix);
             const offseted = Matrix.sum(multiplied, biases);
-            const list = offseted.getList();
+            const list = offseted.getRaw();
 
             signals.push({
                 raw: list,

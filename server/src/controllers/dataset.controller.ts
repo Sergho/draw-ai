@@ -5,6 +5,10 @@ class DatasetController {
         res.send('Создание элемента датасета');
     }
 
+    async getSize(req: Request, res: Response) {
+        res.send('Получение размерности элемента датасета');
+    }
+
     async getAll(req: Request, res: Response) {
         res.send('Получение всех элементов датасета');
     }

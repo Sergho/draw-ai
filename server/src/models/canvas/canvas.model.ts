@@ -2,16 +2,9 @@ import { Matrix } from '../matrix/matrix.model.js';
 import { CANVAS_ERROR } from './canvas.constants.js';
 import { CanvasPosition, CanvasSize } from './canvas.types.js';
 
-export class Canvas {
-    private matrix: Matrix;
+export class Canvas extends Matrix {
     constructor(size: CanvasSize) {
-        this.matrix = new Matrix(size);
-    }
-    get size(): CanvasSize {
-        return this.matrix.size;
-    }
-    set size(value: CanvasSize) {
-        this.matrix.size = value;
+        super(size);
     }
     parseBase64(data: string): void {
         const blob = Buffer.from(data, 'base64');
@@ -42,35 +35,21 @@ export class Canvas {
         const buffer = new Uint8Array(rows * cols);
         for (let col = 0; col < cols; col++) {
             for (let row = 0; row < rows; row++) {
-                const elem = this.matrix.get({ row, col }) * 10;
+                const elem = this.get({ row, col }) * 10;
                 buffer[row * cols + col] = elem;
             }
         }
 
         return Buffer.from(buffer);
     }
-    get(position: CanvasPosition): number {
-        return this.matrix.get(position);
-    }
     set(position: CanvasPosition, value: number) {
         if (value < 0 || value > 1) {
             throw CANVAS_ERROR.incorrectData;
         }
 
-        this.matrix.set(position, value);
-    }
-    checkSize(target: CanvasSize): boolean {
-        const { rows, cols } = target;
-
-        return rows === this.size.rows && cols === this.size.cols;
-    }
-    getList(): number[] {
-        return this.matrix.getList();
-    }
-    fill(value: number): void {
-        this.matrix.fill(value);
+        super.set(position, value);
     }
     random(): void {
-        this.matrix.random(0, 1);
+        super.random(0, 1);
     }
 }

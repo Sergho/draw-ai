@@ -3,6 +3,5 @@ import { aiController } from '../controllers/ai.controller.js';
 
 export const aiRouter = Router();
 
-aiRouter.put('/', aiController.update);
-aiRouter.get('/status', aiController.status);
+aiRouter.put('/', aiController.learn);
 aiRouter.get('/', aiController.predict);

@@ -1,12 +1,8 @@
 import { Request, Response } from 'express';
 
 class AiController {
-    async update(req: Request, res: Response) {
+    async learn(req: Request, res: Response) {
         res.send('Запуск обучения');
-    }
-
-    async status(req: Request, res: Response) {
-        res.send('Статус обучения');
     }
 
     async predict(req: Request, res: Response) {
